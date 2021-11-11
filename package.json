@@ -1,7 +1,11 @@
 {
-  "name": "noesistech-react-interview",
+  "name": "@noesistechnology/react-interview",
   "version": "0.1.0",
   "private": true,
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:noesistechnology/react-interview.git"
+  },
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
