@@ -1,0 +1,21 @@
+.logo {
+  font-size: 20px;
+  color: #ffffff;
+  text-transform: capitalize;  
+}
+
+.fitHeight {
+  min-height: 100vh;
+}
+
+.content {
+  padding: 0 50px;
+}
+
+.breadcrumbs {
+  margin: 16px 0;
+}
+
+.footer {
+  text-align: center;
+}

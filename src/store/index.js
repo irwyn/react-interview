@@ -3,11 +3,12 @@
  */
 
 import { configureStore } from '@reduxjs/toolkit';
+
 import CarriersSlice from './carriers';
 
 const Store = configureStore({
   reducer: {
-    carriers: CarriersSlice,
+    carriers: CarriersSlice.reducer,
   },
 });
 

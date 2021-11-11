@@ -1,13 +1,11 @@
-import { Button } from 'antd';
+import { useNavigate } from 'react-router-dom';
+import { useMount } from 'react-use';
 
 const HomePage = () => {
-  return (
-    <div style={{ padding: '8px' }}>
-      <Button type="primary">
-        Click me
-      </Button>
-    </div>
-  );
+  const navigate = useNavigate();
+  useMount(() => navigate('/carriers/reports'));
+
+  return null;
 };
 
 export default HomePage;

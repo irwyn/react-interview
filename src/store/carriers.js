@@ -1,20 +1,28 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+
 import API from '@/api';
 
 const name = 'carriers';
 
+const initialState = {
+  reports: {
+    data: [],
+    params: {
+      fromDate: null,
+      toDate: null,
+    },
+    isFetching: false,
+  },
+};
+
 const CarriersSlice = createSlice({
   name,
-  initialState: {
-    reports: {
-      data: [],
-      params: {
-        fromDate: null,
-        toDate: null,
-      },
-      isFetching: false,
+  initialState,
+  reducers: {
+    reset(s) {
+      Object.assign(s, initialState);
     },
-  },
+  }
 });
 
 export const thunks = {
@@ -24,5 +32,7 @@ export const thunks = {
     return result;
   }),
 };
+
+export const actions = CarriersSlice.actions;
 
 export default CarriersSlice;

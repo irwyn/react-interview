@@ -3,7 +3,11 @@
       "react-app",
       "react-app/jest"
     ],
+    "plugins": ["simple-import-sort"],
     "rules": {
-        "quotes": ["error", "single"]
+      "simple-import-sort/imports": "error",
+      "simple-import-sort/exports": "error",
+      "quotes": ["error", "single"],
+      "semi": "error"
     }
 }

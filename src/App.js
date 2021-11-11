@@ -1,8 +1,13 @@
+import { Provider } from 'react-redux';
+
 import Cerberus from './Cerberus';
+import Store from './store';
 
 const App = () => {
   return (
-    <Cerberus />
+    <Provider store={Store}>
+      <Cerberus />
+    </Provider>
   );
 };
 
