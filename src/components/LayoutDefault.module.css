@@ -19,3 +19,8 @@
 .footer {
   text-align: center;
 }
+
+.pageHeader {
+  padding: 0;
+  padding-bottom: 24px;
+}

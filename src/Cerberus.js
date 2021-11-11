@@ -4,7 +4,7 @@ import { BrowserRouter, Route,Routes } from 'react-router-dom';
 import NotFoundPage from '@/pages/NotFound';
 
 const HomePage = lazy(() => import('@/pages/Home'));
-const CarriersReportsPage = lazy(() => import('@/pages/CarriersReports'));
+const CarriersReportsPage = lazy(() => import('@/pages/CarriersReports/index'));
 
 /**
  * Cerberus manage routes to Page components

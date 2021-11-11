@@ -1,10 +1,10 @@
-import { Breadcrumb, Layout } from 'antd';
+import { Breadcrumb, Layout, PageHeader } from 'antd';
 
 import styles from './LayoutDefault.module.css';
 
 const { Header, Content, Footer } = Layout;
 
-const LayoutDefault = ({ children, breadcrumbs = [] }) => {
+const LayoutDefault = ({ children, breadcrumbs = [], title }) => {
   return (
     <Layout className={styles.fitHeight}>
       <Header>
@@ -13,13 +13,18 @@ const LayoutDefault = ({ children, breadcrumbs = [] }) => {
         </div>
       </Header>
       <Content className={styles.content}>
-        {breadcrumbs.length > 0 && (
-        <Breadcrumb className={styles.breadcrumbs}>
-          {breadcrumbs.map((label, idx) => (
-            <Breadcrumb.Item key={idx}>{label}</Breadcrumb.Item>
-          ))}
-        </Breadcrumb>
-        )}
+        <PageHeader
+          ghost
+          title={title}
+          breadcrumb={breadcrumbs.length > 0 ? (
+            <Breadcrumb className={styles.breadcrumbs}>
+              {breadcrumbs.map((label, idx) => (
+                <Breadcrumb.Item key={idx}>{label}</Breadcrumb.Item>
+              ))}
+            </Breadcrumb>
+          ) : undefined}
+          className={styles.pageHeader}
+        />
         <div>
           {children}
         </div>
