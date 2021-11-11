@@ -14,3 +14,5 @@ Start development environment
 ```
 yarn build
 ```
+
+Build project for production. Assets stored in `./build`.
