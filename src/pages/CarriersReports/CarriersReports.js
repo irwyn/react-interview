@@ -1,4 +1,4 @@
-import { Card, message, Spin, Tabs, Typography } from 'antd';
+import { Card, Col, message, Row, Spin, Tabs, Typography } from 'antd';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffectOnce } from 'react-use';
@@ -8,6 +8,7 @@ import LayoutDefault from '@/components/LayoutDefault';
 import { actions, thunks } from '@/store/carriers';
 
 import styles from './CarriersReports.module.css';
+import RevenueReport from './components/RevenueReport';
 import TableReport from './components/TableReport';
 
 const CarrierReportsPage = () => {
@@ -17,7 +18,14 @@ const CarrierReportsPage = () => {
 
   const fetchData = async (query) => {
     try {
-      const params = query?.length === 2 ? { start: query[0], end: query[1] } : undefined;
+      const epochNow = Math.trunc(new Date().valueOf() / 1000);
+      const params = query?.length === 2 ? {
+        start: query[0],
+        end: query[1]
+      } : {
+        start: epochNow - 86400,
+        end: epochNow,
+      };
 
       await dispatch(thunks.fetchReports(params)).unwrap();
     } catch (error) {
@@ -51,36 +59,45 @@ const CarrierReportsPage = () => {
       <Card bordered size="small">
         <Tabs className={styles.tabs} onChange={handleReset}>
           <Tabs.TabPane key="tab1" tab="Carriers summary">
-            <Typography.Title level={3}>
-              Carriers summary
-            </Typography.Title>
+            <Row>
+              <Col flex="1">
+                <Typography.Title level={3}>
+                  Carriers summary
+                </Typography.Title>
+              </Col>
+              <Col>
+                <DateRangePicker value={range} onChange={handleRangeChange} />
+              </Col>
+            </Row>
 
             <Spin spinning={isFetching}>
               {isFetching ? (
                 <div style={{ height: 80 }} />
               ) : (
-                <>
-                  <DateRangePicker value={range} onChange={handleRangeChange} />
-                  <TableReport
-                    carriersData={carriersData}
-                    range={range}
-                    onRangeChange={setRange}
-                  />
-                </>
+                <TableReport carriersData={carriersData} />
               )}
             </Spin>
           </Tabs.TabPane>
 
           <Tabs.TabPane key="tab2" tab="Revenue report by carriers">
-            <Typography.Title level={3}>
-              Revenue report by carriers
-            </Typography.Title>
-          </Tabs.TabPane>
-
-          <Tabs.TabPane key="tab3" tab="Errors report by carriers">
-            <Typography.Title level={3}>
-              Errors report by carriers
-            </Typography.Title>
+            <Row>
+              <Col flex="1">
+                <Typography.Title level={3}>
+                  Revenue report by carriers
+                </Typography.Title>
+              </Col>
+              <Col>
+                <DateRangePicker value={range} onChange={handleRangeChange} />
+              </Col>
+            </Row>
+            
+            <Spin spinning={isFetching}>
+              {isFetching ? (
+                <div style={{ height: 80 }} />
+              ) : (
+                <RevenueReport carriersData={carriersData} />
+              )}
+            </Spin>
           </Tabs.TabPane>
         </Tabs>
       </Card>

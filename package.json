@@ -20,7 +20,9 @@
     "react-router-dom": "^6.0.2",
     "react-scripts": "4.0.3",
     "react-use": "^17.3.1",
-    "redux": "^4.1.2"
+    "recharts": "^2.1.6",
+    "redux": "^4.1.2",
+    "xxhashjs": "^0.2.2"
   },
   "scripts": {
     "start": "react-app-rewired start",

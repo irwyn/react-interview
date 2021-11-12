@@ -1,5 +1,5 @@
 import { ClockCircleOutlined } from '@ant-design/icons';
-import { Table } from 'antd';
+import { Table, Typography } from 'antd';
 import { format, fromUnixTime } from 'date-fns';
 import { uniq } from 'lodash-es';
 import numeral from 'numeral';
@@ -14,16 +14,21 @@ const TableReport = ({ carriersData }) => {
     <Table
       bordered
       dataSource={carriersData}
+      rowKey={(r) => `${r.timestamp}:${r.carrierId}`}
       pagination={{ pageSize: 40, showSizeChanger: false }}
     >
       <Table.Column
         title={<ClockCircleOutlined />}
-        width={180}
+        width={200}
         dataIndex="timestamp"
-        render={ts => format(fromUnixTime(ts), 'Pp')}
+        render={ts => (
+          <Typography.Text style={{ fontFamily: 'monospace' }}>
+            {format(fromUnixTime(ts), 'Pp')}
+          </Typography.Text>
+        )}
       />
       <Table.Column
-        title="Carrier"
+        title="Carrier ID"
         dataIndex="carrierId"
         filters={carrierFilters}
         onFilter={(v, r) => r.carrierId === v}
@@ -41,7 +46,7 @@ const TableReport = ({ carriersData }) => {
         render={v => numeral(v).format('$0,0.00')}
       />
       <Table.Column
-        title="# Send"
+        title="# Sends"
         dataIndex="sends"
         align="right"
         render={v => numeral(v).format('0,0')}
