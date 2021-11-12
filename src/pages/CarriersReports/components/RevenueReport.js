@@ -61,8 +61,8 @@ const RevenueReport = ({ carriersData }) => {
               fill="#95de64"
               label={({ name, value }) => `${name}: ${formatMoney(value)}`}
             >
-              {carriers.map((carrierId, idx) => (
-                <Cell key={carrierId} fill={hashToColor(String(carrierId))} />
+              {sum.map(({ name }) => (
+                <Cell key={name} fill={hashToColor(String(name))} />
               ))}
             </Pie>
             <Tooltip />
