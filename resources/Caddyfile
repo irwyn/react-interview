@@ -1,0 +1,29 @@
+# Caddy will serve files from /app/html directory
+# on port tcp:80
+
+:80 {
+    # Set root path
+    root * /app/html
+
+    # Allow static file serving
+    file_server {
+        index /nope
+    }
+
+    # Handing for indexes and static files
+    @assets {
+        file {path}
+    }
+    handle @assets {
+        rewrite {http.matchers.file.relative}
+    }
+
+    @indexes file /index.html
+    handle @indexes {
+        header "Cache-Control" "no-cache, must-revalidate, max-age=0"
+        rewrite {http.matchers.file.relative}
+    }
+
+    # Misc
+    encode zstd gzip
+}
