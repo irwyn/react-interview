@@ -3,7 +3,7 @@ import { format, fromUnixTime } from 'date-fns';
 import { flatMapDeep, fromPairs, groupBy, sumBy, uniq } from 'lodash-es';
 import numeral from 'numeral';
 import { useMemo } from 'react';
-import { CartesianGrid, Cell, Label, Legend, Line, LineChart, Pie, PieChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
+import { Area, CartesianGrid, Cell, ComposedChart, Legend, Line, Pie, PieChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
 
 import { hashToColor } from '@/utils';
 
@@ -17,7 +17,7 @@ const RevenueReport = ({ carriersData }) => {
     const values = Object.entries(groups).map(([ts, items]) => ({
       timestamp: format(fromUnixTime(ts), 'Pp'),
       ...fromPairs(items.map(item => ([item.carrierId, item.revenue_by_carrier]))),
-      total: sumBy(items, 'revenue_by_carrier')
+      total: sumBy(items, 'revenue_by_carrier'),
     }));
     const sum = Object.entries(groupBy(carriersData, 'carrierId'))
       .map(([carrierId, records]) => ({
@@ -36,17 +36,17 @@ const RevenueReport = ({ carriersData }) => {
           Revenue by carriers
         </div>
         <ResponsiveContainer width="100%" height={500}>
-          <LineChart data={values} width={700} height={200}>
+          <ComposedChart data={values} width={700} height={200}>
             <XAxis dataKey="timestamp" />
             <YAxis tickCount={20} tickFormatter={formatMoney} />
             <CartesianGrid stroke="#dddddd" strokeDasharray="5 5"/>
             <Legend verticalAlign="top" />
             <Tooltip formatter={formatMoney} />
             {carriers.map((cid) => (
-              <Line key={cid} type="monotone" dataKey={cid} stroke={hashToColor(String(cid))} />
+              <Area key={cid} type="monotone" stackId="main" dataKey={cid} stroke={hashToColor(String(cid))} fill={hashToColor(String(cid))} />
             ))}
-            <Line name="Total" type="monotone" dataKey="total" stroke="#000000" strokeWidth="2" dot={{ r: 4 }} />
-          </LineChart>
+            <Line name="Total" type="monotone" dataKey="total" stroke="#000000" strokeWidth="0" dot={false} />
+          </ComposedChart>
         </ResponsiveContainer>
       </Col>
       <Col span={8}>
